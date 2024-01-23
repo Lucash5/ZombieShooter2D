@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
 
         if (Input.GetMouseButton(0) && cooldown == false)
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        Vector2 direction  = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
 
         transform.right = direction;
     }
@@ -41,17 +43,16 @@ public class PlayerMovement : MonoBehaviour
         cooldown = true;
         GameObject boolet = Instantiate(bullet);
         boolet.transform.position = firepoint.position;
-        boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 6000);
+        boolet.transform.rotation = firepoint.rotation;
+        boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 600);
         yield return new WaitForSeconds(0.1f);
         cooldown = false;
+        yield return new WaitForSeconds(4);
+        if (boolet != null)
+        {
+            Destroy(boolet);
+        }
 
-
-    }
-    public void firebullet()
-    {
-
-        GameObject boolet = Instantiate(bullet);
-        boolet.transform.position = firepoint.position;
-        boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 6000);
     }
 }
+ 
