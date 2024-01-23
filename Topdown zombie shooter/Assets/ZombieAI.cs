@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieAI : MonoBehaviour
 {
+    bool cooldown;
     public float health;
     public float speed;
     public float damage;
@@ -40,4 +42,28 @@ public class ZombieAI : MonoBehaviour
         }
        
     }
+    /*private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerMovement>().takingdamage(damage);
+        }
+    }*/
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Player" && cooldown == false)
+        {
+            StartCoroutine(attackcooldown());
+            collision.gameObject.GetComponent<PlayerMovement>().takingdamage(damage);
+        }
+    }
+
+    IEnumerator attackcooldown()
+    {
+        cooldown = true;
+        yield return new WaitForSeconds(2);
+        cooldown = false;
+    }
+
 }

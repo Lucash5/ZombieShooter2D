@@ -7,11 +7,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    static public int killcount;
+    public float health;
     bool cooldown;
     public GameObject bullet;
     public float speed;
     Rigidbody2D rb;
     public Transform firepoint;
+    public Transform bulletsfolder;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
         GameObject boolet = Instantiate(bullet);
         boolet.transform.position = firepoint.position;
         boolet.transform.rotation = firepoint.rotation;
-        boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 600);
+        //600
+        
+        boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 1000);
+        boolet.transform.SetParent(bulletsfolder);
         yield return new WaitForSeconds(0.1f);
         cooldown = false;
         yield return new WaitForSeconds(4);
@@ -53,6 +59,16 @@ public class PlayerMovement : MonoBehaviour
             Destroy(boolet);
         }
 
+    }
+
+    public void takingdamage(float dmg)
+    {
+        health -= dmg;
+        Debug.Log(health);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
  
