@@ -28,7 +28,11 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(firingboolet());
         }
 
-        Vector2 direction = new Vector2(transform.position.x - Input.mousePosition.x, transform.position.y - Input.mousePosition.y);
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        Vector2 direction  = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+
         transform.right = direction;
     }
 
