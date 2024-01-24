@@ -11,7 +11,7 @@ public class ZombieSpawnScript : MonoBehaviour
     bool cooldown;
     public GameObject zombie;
     public GameObject player;
-    public Transform zombies;
+
     int maxzombiecount = 20;
     float zombiespawnspeed = 2;
     // Start is called before the first frame update
@@ -24,9 +24,7 @@ public class ZombieSpawnScript : MonoBehaviour
     void Update()
     {
         
-       
-
-        if (cooldown == false && zombies.childCount < 20)
+        if (cooldown == false && GameManager.ZombiesAlive < 20)
         {
             StartCoroutine(spawnzombie());
         }
@@ -43,7 +41,7 @@ public class ZombieSpawnScript : MonoBehaviour
         zomb.transform.position = new Vector2(num1, num2);
         zomb.name = "Enemy";
         zomb.GetComponent<ZombieAI>().player = player.transform;
-        zomb.transform.SetParent(zombies);
+        zomb.transform.SetParent(GameManager.Instance.zombiesRoot);
         }
         yield return new WaitForSeconds(2f);
         cooldown = false;

@@ -10,15 +10,18 @@ public class PlayerMovement : MonoBehaviour
     static public int killcount;
     public float health;
     bool cooldown;
+    bool rocketcooldown;
     public GameObject bullet;
+    public GameObject rocket;
     public float speed;
     Rigidbody2D rb;
     public Transform firepoint;
-    public Transform bulletsfolder;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        GameManager.Instance.player = this;
     }
 
     // Update is called once per frame
@@ -31,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) && cooldown == false)
         {
             StartCoroutine(firingboolet());
+        }
+        else if (Input.GetMouseButton(1) && rocketcooldown == false)
+        {
+            StartCoroutine(firingrocket());
         }
 
         Vector3 mousePosition = Input.mousePosition;
@@ -50,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         //600
         
         boolet.GetComponent<Rigidbody2D>().AddForce(transform.right * 1000);
-        boolet.transform.SetParent(bulletsfolder);
+        boolet.transform.SetParent(GameManager.Instance.bulletRoot);
         yield return new WaitForSeconds(0.1f);
         cooldown = false;
         yield return new WaitForSeconds(4);
@@ -59,6 +66,26 @@ public class PlayerMovement : MonoBehaviour
             Destroy(boolet);
         }
 
+    }
+
+    IEnumerator firingrocket()
+    {
+        rocketcooldown = true;
+        GameObject rooket = Instantiate(rocket);
+        rooket.transform.position = firepoint.position;
+        rooket.transform.rotation = firepoint.rotation;
+
+
+        rooket.GetComponent<Rigidbody2D>().AddForce(transform.right * 1000);
+        rooket.transform.SetParent(GameManager.Instance.bulletRoot);
+        
+        yield return new WaitForSeconds(10);
+        if (rocket != null)
+        {
+            Destroy(rooket);
+        }
+        Debug.Log("hector");
+        rocketcooldown = false;
     }
 
     public void takingdamage(float dmg)

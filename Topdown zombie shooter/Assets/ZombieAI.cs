@@ -11,11 +11,13 @@ public class ZombieAI : MonoBehaviour
     public float damage;
     public Transform player;
     Rigidbody2D rb;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        GameManager.ZombiesAlive++;
     }
 
     // Update is called once per frame
@@ -36,8 +38,10 @@ public class ZombieAI : MonoBehaviour
     public void takedamage(float dmg)
     {
         health -= dmg;
+        
         if (health <= 0)
         {
+            GameManager.ZombiesAlive--;
             Destroy(gameObject);
         }
        
