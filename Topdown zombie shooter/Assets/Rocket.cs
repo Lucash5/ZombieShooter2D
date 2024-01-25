@@ -32,15 +32,15 @@ public class Rocket : MonoBehaviour
             {
                 item.SetActive(true);
             }
-        Debug.Log(GameManager.ZombiesAlive);
+        
             for (int i = 0; i < GameManager.ZombiesAlive; i++)
             {
                 double distance = 
                 Mathf.Sqrt(Mathf.Pow(
                     transform.position.x - zombieRoot.GetChild(i).position.x,2) 
                     + Mathf.Pow(transform.position.y - zombieRoot.GetChild(i).position.y, 2));
-            Debug.Log(distance);
-                if (distance < 50)
+                Debug.Log(distance);
+                if (distance < 3)
                 {
                
                 //zombies.GetChild(i).gameObject.GetComponent<ZombieAI>().takedamage(damage);
@@ -55,7 +55,7 @@ public class Rocket : MonoBehaviour
 
             rb.velocity = Vector3.zero;
 
-            Destroy(this.gameObject, 0.25f);
+            Destroy(this.gameObject, 0.5f);
 
     }
 

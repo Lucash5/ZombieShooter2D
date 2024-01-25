@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1647803599932867226, guid: f7b425c5273aec74dacdc64670f4f370, type: 3}
   player: {fileID: 900936666}
+  maxzombiecount: 50
+  zombiespawnspeed: 2
 --- !u!4 &144203763
 Transform:
   m_ObjectHideFlags: 0

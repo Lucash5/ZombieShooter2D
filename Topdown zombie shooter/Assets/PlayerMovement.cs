@@ -79,13 +79,14 @@ public class PlayerMovement : MonoBehaviour
         rooket.GetComponent<Rigidbody2D>().AddForce(transform.right * 1000);
         rooket.transform.SetParent(GameManager.Instance.bulletRoot);
         
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(8f);
+        rocketcooldown = false;
+        yield return new WaitForSeconds(2f);
         if (rocket != null)
         {
             Destroy(rooket);
         }
-        Debug.Log("hector");
-        rocketcooldown = false;
+        
     }
 
     public void takingdamage(float dmg)

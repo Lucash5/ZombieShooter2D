@@ -17,7 +17,7 @@ public class ZombieAI : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        GameManager.ZombiesAlive++;
+        
     }
 
     // Update is called once per frame
@@ -41,11 +41,16 @@ public class ZombieAI : MonoBehaviour
         
         if (health <= 0)
         {
-            GameManager.ZombiesAlive--;
             Destroy(gameObject);
         }
        
     }
+
+    private void OnDisable()
+    {
+        GameManager.ZombiesAlive -= 1;
+    }
+
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
