@@ -27,7 +27,7 @@ public class MainmenuScript : MonoBehaviour
 
     private void start()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("tilemap");
     }
 
     private void controls()

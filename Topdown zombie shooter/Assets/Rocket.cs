@@ -28,6 +28,7 @@ public class Rocket : MonoBehaviour
     {
        
 
+
             foreach (var item in objectsToActivate)
             {
                 item.SetActive(true);
@@ -56,6 +57,7 @@ public class Rocket : MonoBehaviour
             rb.velocity = Vector3.zero;
 
             Destroy(this.gameObject, 0.5f);
+        
 
     }
 
